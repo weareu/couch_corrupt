@@ -111,7 +111,7 @@ function forAllKeys(c) {
 
     function iter(startKey, cbIter, cbErr) {
         c.keys(startKey, batch)((err, keys) => {
-            if (err) return cbErr(err);
+            if (err) return console.log(err);
             if (startKey) {
                 // skip previous end key
                 keys = keys.slice(1);

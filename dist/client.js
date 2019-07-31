@@ -48,6 +48,7 @@ function get(server, user, password) {
                 res.on('data', function (data) {
                     parts.push(data);
                 });
+                res.on('error', console.error);
                 res.on('end', function () {
                     try {
                         if (res.statusCode === 409) {

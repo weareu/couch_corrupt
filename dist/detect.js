@@ -109,9 +109,21 @@ function forAllKeys(c) {
     let startKey = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
     let batch = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
 
+    var retry = 0;
     function iter(startKey, cbIter, cbErr) {
         c.keys(startKey, batch)((err, keys) => {
-            if (err) return console.log(err);
+            if (err) {
+                retry++; 
+                console.log(err);
+
+                if(retry <= 2) {
+                    iter(startKey, cbIter);
+                }
+                else 
+                    return;
+            }
+
+            retry = 0;
             if (startKey) {
                 // skip previous end key
                 keys = keys.slice(1);

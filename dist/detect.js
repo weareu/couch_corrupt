@@ -117,7 +117,7 @@ function forAllKeys(c) {
                 console.log(err);
 
                 if(retry <= 2) {
-                    iter(startKey, cbIter);
+                    return iter(startKey, cbIter);
                 }
                 else 
                     return;
